@@ -39,6 +39,17 @@ This project may or may not turn into something actually useful, but it will be
 fun to work on, hopefully.
 
 ### Contributing
-Contributions are welcome! I will review PRs and probably merge anything that
-looks remotely readable.
+Contributions are very welcome! I will review PRs and probably merge anything
+that looks remotely readable.
+
+The most immediate way you can help is to add operations on `TextStream`. Just
+make sure everything lines up with `coreutils` (or related) tools' interfaces.
+
+### Current status and todos
+The `TextStream` class is operational, with a few operations already implemented
+(`head`, `grep`, `cat`). There is also `TextStreamProducers`, which generates
+`TextStream`s (`cat`, `echo`).
+
+Right now we need documentation, and probably lots of other things.
+
 
