@@ -1,3 +1,10 @@
 
+target/*
 *.class
+
+.bloop/*
+.metals/*
+.settings/*
+.project
+.classpath
 
