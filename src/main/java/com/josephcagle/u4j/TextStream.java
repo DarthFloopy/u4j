@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.joining;
 
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -16,6 +17,12 @@ public class TextStream {
     private final List<String> lines;
 
     protected TextStream(List<String> lines) {
+        if (lines == null)
+            throw new IllegalArgumentException("lines must not be null");
+        for (String line : lines)
+            if (line == null)
+                throw new IllegalArgumentException("lines must not contain null");
+
         this.lines = lines;
     }
 
@@ -80,23 +87,38 @@ public class TextStream {
      */
 
     public final TextStream head(int numLines) {
+        if (numLines < 0)
+            throw new IllegalArgumentException("lines must be >= 0");
+
         return new TextStream(this.lines.subList(0, numLines));
     }
     public final TextStream head() { return head(10); }
 
     public final TextStream tail(int numLines) {
+        if (numLines < 0)
+            throw new IllegalArgumentException("lines must be >= 0");
+
         return new TextStream(
             lines.subList(lines.size() - numLines, lines.size())
         );
     }
 
     public final TextStream grep(String regex) {
-        return new TextStream(
-            this.lines.stream()
-                .filter(line -> {
-                    return Pattern.compile(regex).matcher(line).find();
-                })
-                .collect(Collectors.toList())
+        if (regex == null)
+            throw new IllegalArgumentException("regex must not be null");
+
+        Pattern pattern;
+        try {
+            pattern = Pattern.compile(regex);
+        } catch (PatternSyntaxException e) {
+            throw new IllegalArgumentException("invalid regex: " + regex);
+        }
+
+        return new TextStream(this.lines.stream()
+            .filter(line -> {
+                return pattern.matcher(line).find();
+            })
+            .collect(Collectors.toList())
         );
     }
 

@@ -10,6 +10,8 @@ import java.util.Scanner;
 
 public final class TextStreamProducers {
     static TextStream echo(String s) {
+        if (s == null)
+            throw new IllegalArgumentException("s must not be null");
         return new TextStream(List.of(s));
     }
 
