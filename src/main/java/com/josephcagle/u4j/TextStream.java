@@ -2,9 +2,10 @@
 package com.josephcagle.u4j;
 
 import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
 
+import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -29,6 +30,31 @@ public class TextStream {
         return lines.collect(joining(System.lineSeparator()));
     }
 
+    /**
+     *
+     * @return this TextStream's lines of text in a {@link List}.
+     */
+    public final List<String> toList() {
+        return lines.collect(Collectors.toList());
+    }
+
+    /**
+     *
+     * @return this TextStream's lines of text in a {@link Stream}.
+     */
+    public final Stream<String> toStream() {
+        return lines;
+    }
+
+    /**
+     *
+     * @return the length of this TextStream, in lines of text.
+     */
+    public final int length() {
+        return lines.collect(Collectors.toList()).size();
+    }
+
+
     /*
      * From here on is a bunch of transformations on TextStream
      * TODO: Add links to manpages for each emulated Unix tool
@@ -36,7 +62,7 @@ public class TextStream {
 
     public final TextStream head(int numLines) {
         return new TextStream(
-            this.lines.limit(numLines).collect(toList()).stream()
+            this.lines.limit(numLines).collect(Collectors.toList()).stream()
         );
     }
     public final TextStream head() { return head(10); }
@@ -46,7 +72,7 @@ public class TextStream {
             this.lines
                 .filter(line -> {
                     return Pattern.compile(regex).matcher(line).find();
-                }).collect(toList()).stream()
+                }).collect(Collectors.toList()).stream()
         );
     }
 
