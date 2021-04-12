@@ -3,6 +3,7 @@ package com.josephcagle.u4j;
 
 import static java.util.stream.Collectors.joining;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -23,7 +24,8 @@ public class TextStream {
             if (line == null)
                 throw new IllegalArgumentException("lines must not contain null");
 
-        this.lines = lines;
+        // make sure it's immutable -- see e.g. #toList()
+        this.lines = Collections.unmodifiableList(lines);
     }
 
     /**
