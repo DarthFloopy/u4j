@@ -84,6 +84,12 @@ public class TextStream {
     }
     public final TextStream head() { return head(10); }
 
+    public final TextStream tail(int numLines) {
+        return new TextStream(
+            lines.subList(lines.size() - numLines, lines.size())
+        );
+    }
+
     public final TextStream grep(String regex) {
         return new TextStream(
             this.lines.stream()

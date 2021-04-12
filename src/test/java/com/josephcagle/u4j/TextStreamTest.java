@@ -89,4 +89,14 @@ public class TextStreamTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void testTail() {
+        TextStream ts = new TextStream(genericTestData);
+
+        TextStream expected = new TextStream(genericTestData.subList(1, 3));
+        TextStream actual = ts.tail(2);
+
+        assertEquals(expected, actual);
+    }
 }
