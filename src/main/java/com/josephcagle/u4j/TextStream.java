@@ -101,7 +101,8 @@ public class TextStream {
     }
 
     public final void cat() {
-        lines.forEach(System.out::println);
+        for (String line : lines)
+            System.out.println(line);
     }
 }
 
