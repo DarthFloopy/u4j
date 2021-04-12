@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 public class TextStream {
     private final List<String> lines;
 
-    protected TextStream(List<String> lines) {
+    public TextStream(List<String> lines) {
         if (lines == null)
             throw new IllegalArgumentException("lines must not be null");
         for (String line : lines)
