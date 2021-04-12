@@ -90,7 +90,9 @@ public class TextStream {
 
     public final TextStream head(int numLines) {
         if (numLines < 0)
-            throw new IllegalArgumentException("lines must be >= 0");
+            throw new IllegalArgumentException("numLines must be >= 0");
+        if (numLines > length())
+            throw new IllegalArgumentException("numLines must be <= length()");
 
         return new TextStream(this.lines.subList(0, numLines));
     }
