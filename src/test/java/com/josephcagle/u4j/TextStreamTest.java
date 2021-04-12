@@ -2,10 +2,11 @@ package com.josephcagle.u4j;
 
 import static java.util.stream.Collectors.joining;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.junit.Test;
 
@@ -15,6 +16,27 @@ import org.junit.Test;
 public class TextStreamTest {
 
     private static final List<String> genericTestData = List.of("a", "b", "c");
+
+    @Test
+    public void testEquals() throws Exception {
+        TextStream ts = new TextStream(genericTestData);
+        TextStream ts2 = new TextStream(genericTestData);
+
+        assertTrue(ts.equals(ts));
+        assertFalse(ts.equals(null));
+        assertFalse(ts.equals("42"));
+
+        assertTrue(ts.equals(ts2));
+        assertFalse(ts.equals(new TextStream(List.of("a", "b", "c", "d"))));
+    }
+
+    @Test
+    public void testHashCode() throws Exception {
+        int hc1 = new TextStream(List.of("a", "b", "c")).hashCode();
+        int hc2 = new TextStream(genericTestData).hashCode();
+
+		assertEquals(hc1, hc2);
+    }
 
     @Test
     public void testToString() {

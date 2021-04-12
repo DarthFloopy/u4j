@@ -19,6 +19,31 @@ public class TextStream {
         this.lines = lines;
     }
 
+    /**
+     *
+     * Compares the specified object with this TextStream for equality. Returns
+     * true if and only if the specified object is {@code instanceof}
+     * {@link TextStream} and it contains the same lines of text.
+     */
+    @Override
+    public final boolean equals(Object that) {
+        if (this == that)
+            return true;
+        if (that == null)
+            return false;
+
+        if (!(that instanceof TextStream))
+            return false;
+        TextStream tsThat = (TextStream) that;
+
+        return this.lines.equals(tsThat.lines);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.lines.hashCode();
+    }
+
     @Override
     public final String toString() {
         return lines.stream().collect(joining(System.lineSeparator()));
