@@ -10,24 +10,18 @@ import java.util.stream.Stream;
 
 /**
  * A TextStream represents an immutable, finite stream of lines of text. You
- * can transform TextStreams to process data.<br>
- * <br>
- * - Implementation note: TextStream data is stored in a {@link Stream} of
- *   {@link String}s.  This means that operations returning a transformed
- *   TextStream instance must {@link Stream#collect(java.util.stream.Collector)
- *   collect()} the elements and then {@link java.util.Collection#stream()
- *   stream()} them again so we get a stateful pipeline.
+ * can transform TextStreams to process data.
  */
 public class TextStream {
-    private final Stream<String> lines;
+    private final List<String> lines;
 
-    protected TextStream(Stream<String> lines) {
+    protected TextStream(List<String> lines) {
         this.lines = lines;
     }
 
     @Override
     public final String toString() {
-        return lines.collect(joining(System.lineSeparator()));
+        return lines.stream().collect(joining(System.lineSeparator()));
     }
 
     /**
@@ -35,7 +29,7 @@ public class TextStream {
      * @return this TextStream's lines of text in a {@link List}.
      */
     public final List<String> toList() {
-        return lines.collect(Collectors.toList());
+        return lines;
     }
 
     /**
@@ -43,7 +37,7 @@ public class TextStream {
      * @return this TextStream's lines of text in a {@link Stream}.
      */
     public final Stream<String> toStream() {
-        return lines;
+        return lines.stream();
     }
 
     /**
@@ -51,7 +45,7 @@ public class TextStream {
      * @return the length of this TextStream, in lines of text.
      */
     public final int length() {
-        return lines.collect(Collectors.toList()).size();
+        return lines.size();
     }
 
 
@@ -61,18 +55,17 @@ public class TextStream {
      */
 
     public final TextStream head(int numLines) {
-        return new TextStream(
-            this.lines.limit(numLines).collect(Collectors.toList()).stream()
-        );
+        return new TextStream(this.lines.subList(0, numLines));
     }
     public final TextStream head() { return head(10); }
 
     public final TextStream grep(String regex) {
         return new TextStream(
-            this.lines
+            this.lines.stream()
                 .filter(line -> {
                     return Pattern.compile(regex).matcher(line).find();
-                }).collect(Collectors.toList()).stream()
+                })
+                .collect(Collectors.toList())
         );
     }
 

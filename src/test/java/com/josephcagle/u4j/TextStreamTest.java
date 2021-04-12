@@ -18,7 +18,7 @@ public class TextStreamTest {
 
     @Test
     public void testToString() {
-        TextStream ts = new TextStream(genericTestData.stream());
+        TextStream ts = new TextStream(genericTestData);
 
         String expected =
             genericTestData.stream().collect(joining(System.lineSeparator()));
@@ -29,7 +29,7 @@ public class TextStreamTest {
 
     @Test
     public void testToList() {
-		TextStream ts = new TextStream(genericTestData.stream());
+		TextStream ts = new TextStream(genericTestData);
 
         List<String> expected = genericTestData;
         List<String> actual = ts.toList();
@@ -39,7 +39,7 @@ public class TextStreamTest {
 
     @Test
     public void testToStream() {
-        TextStream ts = new TextStream(genericTestData.stream());
+        TextStream ts = new TextStream(genericTestData);
 
         List<String> expected =
             genericTestData.stream().collect(Collectors.toList());
@@ -50,7 +50,7 @@ public class TextStreamTest {
 
     @Test
     public void testLength() {
-        TextStream ts = new TextStream(genericTestData.stream());
+        TextStream ts = new TextStream(genericTestData);
 
         int expected = genericTestData.size();
         int actual = ts.length();
