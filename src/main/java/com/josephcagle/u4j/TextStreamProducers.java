@@ -9,19 +9,20 @@ import java.util.List;
 import java.util.Scanner;
 
 public final class TextStreamProducers {
-    static TextStream echo(String s) {
+
+    public static TextStream echo(String s) {
         if (s == null)
             throw new IllegalArgumentException("s must not be null");
         return new TextStream(List.of(s));
     }
 
-    static TextStream cat(String filename) throws IOException {
+    public static TextStream cat(String filename) throws IOException {
         return new TextStream(
             Files.readAllLines(Path.of(filename))
         );
     }
 
-    static TextStream cat() {
+    public static TextStream cat() {
         List<String> lines = new LinkedList<>();
         try (Scanner in = new Scanner(System.in)) {
             while (in.hasNext()) {
