@@ -71,4 +71,12 @@
       </plugins>
     </pluginManagement>
   </build>
+
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub DarthFloopy Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/darthfloopy/u4j</url>
+    </repository>
+  </distributionManagement>
 </project>
