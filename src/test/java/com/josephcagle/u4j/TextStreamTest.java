@@ -79,4 +79,14 @@ public class TextStreamTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void testHead() {
+        TextStream ts = new TextStream(genericTestData);
+
+        TextStream expected = new TextStream(genericTestData.subList(0, 2));
+        TextStream actual = ts.head(2);
+
+        assertEquals(expected, actual);
+    }
 }
