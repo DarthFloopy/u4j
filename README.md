@@ -16,14 +16,14 @@ coreutils implementations.
 
 ### Roadmap
 When everything is done, we will be able to write things like this...
-```
-`cat billyquotes.txt              | \
+```bash
+cat billyquotes.txt               | \
     grep amends                   | \
         sed "s/amends/almonds/g"  | \
-            tail -1`
+            tail -1
 ```
 and transpile it to this...
-```
+```java
 cat("billyquotes.txt")
     .grep("amends")
     .sed("s", "amends", "almonds", "g")
