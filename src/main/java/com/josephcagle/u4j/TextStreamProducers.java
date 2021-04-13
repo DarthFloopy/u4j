@@ -17,6 +17,9 @@ public final class TextStreamProducers {
     }
 
     public static TextStream cat(String filename) throws IOException {
+        if (filename == null)
+            throw new IllegalArgumentException("filename must not be null");
+
         return new TextStream(
             Files.readAllLines(Path.of(filename))
         );
