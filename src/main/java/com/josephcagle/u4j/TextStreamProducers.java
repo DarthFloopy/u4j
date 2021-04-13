@@ -8,14 +8,38 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * A utility class providing various methods to get {@link TextStream}s.
+ *
+ * @author Joseph Cagle
+ */
 public final class TextStreamProducers {
 
+    /**
+     * Constructs a {@link TextStream} of one line.
+     *
+     * @param s The line of text to use in a {@link TextStream}
+     * @return the new {@link TextStream} with the line of text
+     * @throws IllegalArgumentException if {@code s} is {@code null}
+     */
     public static TextStream echo(String s) {
         if (s == null)
             throw new IllegalArgumentException("s must not be null");
         return new TextStream(List.of(s));
     }
 
+
+    /**
+     * Constructs a {@link TextStream} from a text file. The file is read using
+     * {@link Files#readAllLines(Path)} and {@link Path#of(String)}. See those
+     * methods for possible exceptions and their explanations.
+     *
+     * @param filename The name of the text file
+     * @return a new {@link TextStream} of the lines of the text file
+     * @throws IllegalArgumentException if {@code filename} is {@code null}
+     * @see Files#readAllLines(Path)
+     * @see Path#of(String, String...)
+     */
     public static TextStream cat(String filename) throws IOException {
         if (filename == null)
             throw new IllegalArgumentException("filename must not be null");
@@ -25,6 +49,11 @@ public final class TextStreamProducers {
         );
     }
 
+    /**
+     * Reads lines from {@link System#in} into a new {@link TextStream}.
+     *
+     * @return the new {@link TextStream}
+     */
     public static TextStream cat() {
         List<String> lines = new LinkedList<>();
         try (Scanner in = new Scanner(System.in)) {
