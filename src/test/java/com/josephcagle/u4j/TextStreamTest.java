@@ -18,20 +18,42 @@ public class TextStreamTest {
     private static final List<String> genericTestData = List.of("a", "b", "c");
 
     @Test
-    public void testEquals() throws Exception {
+    public void equals_itself_returnsTrue() throws Exception {
         TextStream ts = new TextStream(genericTestData);
-        TextStream ts2 = new TextStream(genericTestData);
-
         assertTrue(ts.equals(ts));
-        assertFalse(ts.equals(null));
-        assertFalse(ts.equals("42"));
-
-        assertTrue(ts.equals(ts2));
-        assertFalse(ts.equals(new TextStream(List.of("a", "b", "c", "d"))));
     }
 
     @Test
-    public void testHashCode() throws Exception {
+    public void equals_null_returnsFalse() throws Exception {
+        TextStream ts = new TextStream(genericTestData);
+        assertFalse(ts.equals(null));
+
+    }
+
+    @Test
+    @SuppressWarnings("unlikely-arg-type")
+    public void equals_anyString_returnsFalse() throws Exception {
+        TextStream ts = new TextStream(genericTestData);
+        assertFalse(ts.equals("42"));
+        assertFalse(ts.equals("flibbertigibbet"));
+    }
+
+    @Test
+    public void equals_duplicateStream_returnsTrue() throws Exception {
+        TextStream ts = new TextStream(genericTestData);
+        TextStream ts2 = new TextStream(genericTestData);
+        assertTrue(ts.equals(ts2));
+    }
+
+    @Test
+    public void equals_differentStream_returnsFalse() throws Exception {
+        TextStream ts = new TextStream(genericTestData);
+        assertFalse(ts.equals(new TextStream(List.of("a", "b", "c", "d"))));
+    }
+
+
+    @Test
+    public void hashCodesOfEqualObjectsAreEqual() throws Exception {
         int hc1 = new TextStream(List.of("a", "b", "c")).hashCode();
         int hc2 = new TextStream(genericTestData).hashCode();
 
@@ -39,7 +61,7 @@ public class TextStreamTest {
     }
 
     @Test
-    public void testToString() {
+    public void toStringReturnsExpectedResult() {
         TextStream ts = new TextStream(genericTestData);
 
         String expected =
@@ -50,7 +72,7 @@ public class TextStreamTest {
     }
 
     @Test
-    public void testToList() {
+    public void toListReturnsExpectedResult() {
 		TextStream ts = new TextStream(genericTestData);
 
         List<String> expected = genericTestData;
@@ -60,7 +82,7 @@ public class TextStreamTest {
     }
 
     @Test
-    public void testToStream() {
+    public void toStreamReturnsExpectedResult() {
         TextStream ts = new TextStream(genericTestData);
 
         List<String> expected =
@@ -71,7 +93,7 @@ public class TextStreamTest {
     }
 
     @Test
-    public void testLength() {
+    public void lengthReturnsExpectedResult() {
         TextStream ts = new TextStream(genericTestData);
 
         int expected = genericTestData.size();
@@ -81,7 +103,7 @@ public class TextStreamTest {
     }
 
     @Test
-    public void testHead() {
+    public void headReturnsExpectedResult() {
         TextStream ts = new TextStream(genericTestData);
 
         TextStream expected = new TextStream(genericTestData.subList(0, 2));
@@ -91,7 +113,7 @@ public class TextStreamTest {
     }
 
     @Test
-    public void testTail() {
+    public void tailReturnsExpectedResult() {
         TextStream ts = new TextStream(genericTestData);
 
         TextStream expected = new TextStream(genericTestData.subList(1, 3));
@@ -100,3 +122,4 @@ public class TextStreamTest {
         assertEquals(expected, actual);
     }
 }
+
