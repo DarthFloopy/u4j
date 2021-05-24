@@ -104,8 +104,9 @@ public class TextStreamTest {
         assertEquals(expected, actual);
     }
 
+
     @Test
-    public void headReturnsExpectedResult() {
+    public void headReturnsExpectedResultWithGoodInput() {
         TextStream ts = new TextStream(genericTestData);
 
         TextStream expected = new TextStream(genericTestData.subList(0, 2));
@@ -114,8 +115,20 @@ public class TextStreamTest {
         assertEquals(expected, actual);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void headThrowsWithTooLargeInput() {
+        new TextStream(genericTestData).head(12345678);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void headThrowsWithTooSmallInput() {
+        new TextStream(genericTestData).head(-12345678);
+
+    }
+
+
     @Test
-    public void tailReturnsExpectedResult() {
+    public void tailReturnsExpectedResultWithGoodInput() {
         TextStream ts = new TextStream(genericTestData);
 
         TextStream expected = new TextStream(genericTestData.subList(1, 3));
@@ -123,5 +136,16 @@ public class TextStreamTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void tailThrowsWithTooLargeInput() {
+        new TextStream(genericTestData).tail(12345678);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void tailThrowsWithTooSmallInput() {
+        new TextStream(genericTestData).tail(-12345678);
+    }
+
 }
 
