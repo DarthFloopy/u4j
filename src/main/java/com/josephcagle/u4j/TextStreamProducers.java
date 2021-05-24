@@ -18,14 +18,21 @@ public final class TextStreamProducers {
     /**
      * Constructs a {@link TextStream} of one line.
      *
-     * @param s The line of text to use in a {@link TextStream}
-     * @return the new {@link TextStream} with the line of text
+     * If the argument contains one or more newlines, the returned
+     * {@link TextStream} will contain multiple lines, consisting of the
+     * substrings which were separated by the newline(s).
+     *
+     * @param s The line(s) of text to use in the {@link TextStream}
+     * @return the new {@link TextStream}
      * @throws IllegalArgumentException if {@code s} is {@code null}
      */
     public static TextStream echo(String s) {
         if (s == null)
             throw new IllegalArgumentException("s must not be null");
-        return new TextStream(List.of(s));
+
+        return new TextStream(
+            List.of(s.split("\r?\n"))
+        );
     }
 
 
