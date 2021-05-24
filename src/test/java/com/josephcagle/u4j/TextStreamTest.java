@@ -115,6 +115,16 @@ public class TextStreamTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void head_0_returnsExpectedResult() {
+        TextStream ts = new TextStream(genericTestData);
+
+        TextStream expected = new TextStream(Collections.<String>emptyList());
+        TextStream actual = ts.tail(0);
+
+        assertEquals(expected, actual);
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void headThrowsWithTooLargeInput() {
         new TextStream(genericTestData).head(12345678);
@@ -133,6 +143,16 @@ public class TextStreamTest {
 
         TextStream expected = new TextStream(genericTestData.subList(1, 3));
         TextStream actual = ts.tail(2);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void tail_0_returnsExpectedResult() {
+        TextStream ts = new TextStream(genericTestData);
+
+        TextStream expected = new TextStream(Collections.<String>emptyList());
+        TextStream actual = ts.tail(0);
 
         assertEquals(expected, actual);
     }
