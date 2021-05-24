@@ -59,7 +59,7 @@ public class TextStreamTest {
         int hc1 = new TextStream(List.of("a", "b", "c")).hashCode();
         int hc2 = new TextStream(genericTestData).hashCode();
 
-		assertEquals(hc1, hc2);
+        assertEquals(hc1, hc2);
     }
 
     @Test
@@ -75,12 +75,12 @@ public class TextStreamTest {
 
     @Test
     public void toListReturnsExpectedResult() {
-		TextStream ts = new TextStream(genericTestData);
+        TextStream ts = new TextStream(genericTestData);
 
         List<String> expected = genericTestData;
         List<String> actual = ts.toList();
 
-		assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
 
     @Test
