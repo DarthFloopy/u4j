@@ -31,7 +31,7 @@ public final class TextStreamProducers {
             throw new IllegalArgumentException("s must not be null");
 
         return new TextStream(
-            List.of(s.split("\r?\n"))
+            List.of(s.split("\\r?\\n"))
         );
     }
 
