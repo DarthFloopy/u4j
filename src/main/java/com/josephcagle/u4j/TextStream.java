@@ -163,7 +163,7 @@ public class TextStream {
      * @param regex A string containing the regex to search for
      * @return A new {@link TextStream} of all lines containing a match for
      *         {@code regex}
-     * @throws PatternSyntaxException if {@code regex} is invalid
+     * @throws IllegalArgumentException if {@code regex} is invalid
      */
     public final TextStream grep(String regex) {
         if (regex == null)
@@ -173,7 +173,7 @@ public class TextStream {
         try {
             pattern = Pattern.compile(regex);
         } catch (PatternSyntaxException e) {
-            throw new IllegalArgumentException("invalid regex: " + regex);
+            throw new IllegalArgumentException(e);
         }
 
         return new TextStream(this.lines.stream()
